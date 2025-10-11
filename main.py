@@ -1,7 +1,9 @@
 from fastapi import FastAPI
-from app.api.routes import router
-
 import uvicorn
+
+from app.api.routes import text_router, auth_router
+
+
 
 app = FastAPI(
     title="AI Model API",
@@ -9,7 +11,8 @@ app = FastAPI(
     version="1.0"
 )
 
-app.include_router(router, prefix="/api")
+app.include_router(text_router)
+app.include_router(auth_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

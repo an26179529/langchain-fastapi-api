@@ -1,5 +1,16 @@
 fastapi
-uvicorn
-langchain
-openai
-pydantic
+uvicorn[standard]
+
+# LangChain 與其模組
+langchain>=0.1.0
+langchain-openai>=0.1.0
+langchain-community>=0.0.20
+openai>=1.0.0
+
+# 設定檔管理
+pydantic-settings>=2.0
+
+# 身份驗證相關
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
