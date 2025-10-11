@@ -1,5 +1,5 @@
 from app.config.settings import settings
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
 settings = settings
@@ -11,9 +11,6 @@ class AIService:
             openai_api_key=settings.OPENAI_API_KEY
         )
 
-    def get_model(self):
-        return self.model
-
     def generate_query(self, user_input):
 
         template = """
@@ -23,7 +20,6 @@ class AIService:
         """
 
         prompt = ChatPromptTemplate.from_template(
-            input_variables=["user_input"],
             template=template,
             output_key="query"
         )
@@ -31,4 +27,9 @@ class AIService:
         chain = prompt | self.model
 
         response = chain.invoke({"user_input": user_input})
-        return response['query']
+        return response.content
+    
+    
+    
+def get_model() -> AIService:
+    return AIService()

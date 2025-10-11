@@ -11,8 +11,8 @@ app = FastAPI(
     version="1.0"
 )
 
-app.include_router(text_router, prefix="/api")
-app.include_router(auth_router, prefix="/api")
+app.include_router(text_router)
+app.include_router(auth_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
