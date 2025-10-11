@@ -1,17 +1,21 @@
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
-from typing import List, Optional
+from fastapi.security import OAuth2PasswordBearer
 
 from app.services.AI_services import AIService  # 透過依賴注入模型
 from app.models.request_model import QueryRequest
+from app.services.auth_service import get_current_user
+from app.models.user_model import TokenData
 
-router = APIRouter()
+text_router = APIRouter(prefix="/api",tags=["LangChain"])
+auth_router = APIRouter(prefix="/api",tags=["authentication"])
 
 services = AIService()
 
+@auth_router.get("/protected")
+async def protected_route(current_user: TokenData = Depends(get_current_user)):
+    return {"message": f"Hello, {current_user.username}!"}
 
-
-@router.post("/query")
+@text_router.post("/query")
 async def query(
     request: QueryRequest,
     model=Depends(services.get_model)):

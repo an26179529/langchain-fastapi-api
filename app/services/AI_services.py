@@ -1,13 +1,14 @@
-from app.config.config import OPENAI_API_KEY
+from app.config.settings import settings
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
+settings = settings
 
 class AIService:
     def __init__(self):
         self.model = ChatOpenAI(
             model_name="gpt-3.5-turbo",
-            openai_api_key=OPENAI_API_KEY
+            openai_api_key=settings.OPENAI_API_KEY
         )
 
     def get_model(self):
