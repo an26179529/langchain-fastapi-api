@@ -24,10 +24,10 @@ class TravelState(BaseModel):
 
 class TravelSearchOutput(BaseModel):
     attraction: str = Field(description="旅遊景點")
-    # food: str = Field(description="旅遊美食")
-    # activity: str = Field(description="旅遊活動")
-    # transportation: str = Field(description="交通方式")
-    # accommodation: str = Field(description="住宿")
+    food: str = Field(description="旅遊美食")
+    activity: str = Field(description="旅遊活動")
+    transportation: str = Field(description="交通方式")
+    accommodation: str = Field(description="住宿")
 
 
 def search_node(state: TravelState):
@@ -59,8 +59,8 @@ def summary_node(state: TravelState):
         input_variables=["content"],
         template=(
             """你是一位專業旅遊規劃助理，請閱讀以下旅遊資訊內容：{content}
-            請將資訊整理成包含 景點、美食兩個欄位的 JSON，用繁體中文表達。"""
-            # 請將資訊整理成包含 景點、美食、活動、交通、住宿五個欄位的 JSON，用繁體中文表達。
+            請將資訊整理成包含 景點、美食、活動、交通、住宿五個欄位的 JSON，用繁體中文表達。"""
+            # 請將資訊整理成包含 景點、美食兩個欄位的 JSON，用繁體中文表達。
         ),
         partial_variables={"format_instructions": format_instructions}
     )
